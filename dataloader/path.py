@@ -1,1 +1,1 @@
-MNIST = '~/dataset/common/mnist/'
+MNIST = '/Users/nemos/dataset/common/mnist/'
