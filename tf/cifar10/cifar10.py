@@ -102,11 +102,28 @@ for step in range(max_steps):
                              feed_dict={image_holder: image_batch, label_holder:label_batch})
 
     if step % 10 == 0:
-        print(loss_value)
+        print('step: {step}, loss_value:{loss}'.format(step=step, loss=loss_value))
 
+# 计算测试集准确率
 
+num_examples = 10000
+import math
+import numpy as np
+num_iter = int(math.ceil(num_examples / batch_size))
+true_count = 0
+total_sample_count = num_iter * batch_size
+step = 0
+while step < num_iter:
+    image_batch, label_batch = sess.run([images_test, labels_test])
+    predictions = sess.run([top_k_op], feed_dict={image_holder: image_batch,
+                                                  label_holder: label_batch})
 
+    true_count += np.sum(predictions)
+    step += 1
 
+precision = true_count / total_sample_count
+
+print(precision)
 
 
 
